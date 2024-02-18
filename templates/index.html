@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        
+      body {
+font-family: Arial, sans-serif;
+background-color: #f2f2f2;
+}
+.container {
+  width: 600px;
+  margin: 50px auto;
+  padding: 20px 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+textarea {
+  width: 90%;
+  height: 150px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  resize: none;
+}
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(3, 3, 249);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #31a253;
+}
+</style>
+</head>
+<body style="background-color: rgb(206, 134, 25);">
+  <div class="login">
+    <h1 class="heading" style="text-align: center; display: flex ; align-content: center; 
+    justify-content: center;padding: 3px;cursor: pointer;width:650px;margin: auto auto;">
+----:Fake News Detection:---- 
+</h1>   
+
+
+
+
+
+
+
+    <form class="container" action="{{ url_for('predict_datapoint')}}" method="post">
+        
+      <textarea type="text" name="news" placeholder="Enter your news here..." required="required"></textarea>
+        <br>
+        <button type="submit" class="btn1">submit</button>
+        <br>
+    </form>
+                <h2 class="message" style="display: flex; justify-content: center; align-items: center;gap: 30px;">
+                  This news is a:-- {{result}}
+               </h2>
+              
+          </div>
+</body>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
