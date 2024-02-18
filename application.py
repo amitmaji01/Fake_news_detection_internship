@@ -4,7 +4,8 @@ import pandas as pd
 import pickle
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-app=Flask(__name__)
+application=Flask(__name__)
+app=application
 #import model and scaler 
 model=pickle.load(open('model/model_mnb.pkl','rb'))
 vector=pickle.load(open('model/vectorization.pkl','rb'))
