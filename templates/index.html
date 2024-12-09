@@ -1,90 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fake News Detection</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Doto:wght,ROND@900,58&family=Oxanium:wght@200..800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        
-      body {
-font-family: Arial, sans-serif;
-background-color: #f2f2f2;
-}
-.container {
-  width: 600px;
-  margin: 50px auto;
-  padding: 20px 20px;
-  background-color: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-textarea {
-  width: 90%;
-  height: 150px;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  resize: none;
-}
-button {
-  width: 100%;
-  padding: 10px;
-  background-color: rgb(3, 3, 249);
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-button:hover {
-  background-color: #31a253;
-}
-</style>
-</head>
-<body style="background-color: rgb(206, 134, 25);">
-  <div class="login">
-    <h1 class="heading" style="text-align: center; display: flex ; align-content: center; 
-    justify-content: center;padding: 3px;cursor: pointer;width:650px;margin: auto auto;">
-----:Fake News Detection:---- 
-</h1>   
-
-
-
-
-
-
-
-    <form class="container" action="{{ url_for('predict_datapoint')}}" method="post">
-        
-      <textarea type="text" name="news" placeholder="Enter your news here..." required="required"></textarea>
-        <br>
-        <button type="submit" class="btn1">submit</button>
-        <br>
-    </form>
-                <h2 class="message" style="display: flex; justify-content: center; align-items: center;gap: 30px;">
-                  This news is a:-- {{result}}
-               </h2>
-              
+      .button {
+        width: 100%;
+        padding: 10px;
+        background-color: rgb(6, 116, 0);
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .button:hover {
+        background-color: #02982f;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="w-full h-screen bg-[url(../static/bg1.webp)]">
+      <div class="w-full h-screen bg-[rgba(0,0,0,0.8)]">
+        <div class="w-full h-14 flex justify-center py-4">
+          <h1 class="text-white bold text-3xl font-[Doto] font-extrabold">
+            Fake News Detection System Using Machine Learning
+          </h1>
+        </div>
+        <div class="w-full h-max flex justify-center">
+          <div class="w-6/12 h-fit rounded bg-[rgba(0,0,0,0.4)] my-10">
+            <form action="">
+              <textarea
+                type="text"
+                name="news"
+                class="bg-transparent border-2 border-[#006a20] rounded w-full h-80 outline-0 text-white p-2"
+                placeholder="Enter the news wants to varify..."
+              required></textarea>
+              <button type="submit" class="w-full h-10 button pt-0 pb-0">
+                submit
+              </button>
+            </form>
           </div>
-</body>
+        </div>
+        <div class="w-full h-fit flex justify-center">
+          <div class="w-4/12 h-44 flex justify-center items-center">
+            <p class="text-5xl font-[Oxanium] text-box text-white">
+              varify News
+            </p>
+            <img src="" width="170px" heigh="140px" class="img-box hidden" />
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <script>
+      const form = document.querySelector("form");
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
+        // Serialize form data
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+          const response = await fetch("http://127.0.0.1:5000/predictdata", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data), // Ensure JSON is sent
+          });
+
+          const result = await response.json();
+          console.log(result);
+
+          const text_box = document.querySelector(".text-box");
+          const img_box = document.querySelector(".img-box");
+
+          if (result.result == "1") {
+            img_box.src = "../static/correct.png";
+            img_box.style.display = "block";
+            text_box.innerHTML = "True News";
+            text_box.style.color = "green";
+          } else {
+            img_box.src = "../static/fake.png";
+            img_box.style.display = "block";
+            text_box.innerHTML = "Fake News";
+            text_box.style.color = "red";
+          }
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      });
+    </script>
+  </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
